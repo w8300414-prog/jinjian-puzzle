@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>晋见 · 古建拼图</title>
+<meta name="description" content="拼起一方古建，读懂千年山西。来挑战古建拼图，解锁你的文化藏章！">
+<meta property="og:title" content="晋见 · 古建拼图｜来拼一座千年古建">
+<meta property="og:description" content="9片入门、16片进阶，拼古建、答知识、集藏章。邀请你一起挑战！">
+<meta property="og:type" content="website">
+<style>
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;color:#293c36;background:#f5f2e9;font:15px/1.7 'Microsoft YaHei','PingFang SC',sans-serif;background-image:radial-gradient(#a99a7818 .7px,transparent .7px);background-size:5px 5px;-webkit-tap-highlight-color:transparent}
+button,select{font:inherit;cursor:pointer;touch-action:manipulation}
+button{border:1px solid #d8d9cd;background:transparent;color:inherit;border-radius:8px;padding:9px 16px;transition:background .15s,transform .1s}
+button:hover{background:#e6e9df}
+button:active{transform:translateY(1px)}
+button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #bd793b;outline-offset:3px}
+header{max-width:1280px;margin:auto;padding:22px 40px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #deded2}
+.brand{text-decoration:none;color:inherit;font-size:25px;font-family:serif;display:flex;align-items:center;gap:12px;margin-right:auto}
+.brand b{background:#ac4e37;color:#fff8e8;padding:0 9px;font-size:28px;font-weight:400;border-radius:3px}
+.brand small{font-size:13px;border-left:1px solid #c6c8bb;padding-left:14px;color:#778178}
+header button{font-size:13px;white-space:nowrap}
+#share{background:#526f60;color:#fff8e8;border-color:#526f60}
+#share:hover{background:#41594d}
+header button span{margin-left:8px;color:#ad5138}
+main{max-width:1280px;margin:auto;padding:32px 40px}
+.intro{position:relative;padding:6px 0 30px}
+.eyebrow{font-size:12px;letter-spacing:3px;color:#9d623d;margin:0 0 8px}
+h1{font-family:'STSong','SimSun',serif;font-weight:500;font-size:43px;letter-spacing:2px;margin:8px 0 12px}
+h1 em{font-style:normal;color:#526f60}
+.intro>p:not(.eyebrow){color:#7c8377;font-size:14px}
+.tags{display:flex;gap:25px;position:absolute;right:0;bottom:44px;font-size:12px;color:#788577}
+.workspace{display:grid;grid-template-columns:238px 1fr;gap:30px}
+.section-title{font-family:serif;margin:4px 0 20px;font-size:19px}
+.section-title small{font:9px sans-serif;letter-spacing:2px;color:#939c8d;margin-left:12px}
+.chapter{width:100%;display:flex;text-align:left;padding:16px 14px;margin-bottom:12px;gap:13px;background:#efeee5;border:1px solid transparent;border-radius:8px;transition:background .15s,border-color .15s}
+.chapter:hover{background:#e9ece0}
+.chapter.active{background:#e5ebe1;border-color:#9cafa0}
+.chapter .num{color:#b8b9a8;font:italic 29px Georgia}
+.chapter.active .num{color:#6a8975}
+.chapter strong{font-size:15px;font-weight:500}
+.chapter small{display:block;font-size:11px;color:#879182}
+.chapter .check{margin-left:auto;color:#ae523c;font-size:15px}
+.note{margin-top:34px;padding:22px 0;border-top:1px solid #d7d9cc;font-size:12px;color:#939680}
+.note span{color:#8f694a}
+.note i{display:block;text-align:right;font-style:normal;font-size:11px}
+article{background:#fcfbf5;border:1px solid #e0e0d3;border-radius:14px;padding:25px 28px;box-shadow:0 12px 35px #333c2905}
+.game-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:21px;gap:12px}
+h2{font-family:serif;font-size:26px;font-weight:500;margin:0}
+.game-head .eyebrow{font-size:10px;letter-spacing:2px}
+select{border:1px solid #dfe2d5;background:#f5f5ed;padding:8px;border-radius:6px;color:#677865;font-size:12px}
+.game-area{display:grid;grid-template-columns:minmax(0,1fr) 132px;gap:25px}
+.picture{position:relative;aspect-ratio:1;background:#e1e4d6;border-radius:8px;overflow:hidden}
+#board{display:grid;width:100%;height:100%;gap:3px;background:#a0ab9477;padding:3px}
+.tile{border:0;border-radius:1px;background-repeat:no-repeat;padding:0;position:relative;transition:box-shadow .15s,filter .15s;min-width:0}
+.tile:hover{filter:brightness(1.08)}
+.tile.selected{box-shadow:inset 0 0 0 4px #b94e35;z-index:1}
+.tile.focus{box-shadow:inset 0 0 0 3px #bd793b;z-index:1}
+.tile.correct:after{content:'';position:absolute;right:5px;bottom:5px;width:6px;height:6px;background:#fff8dc;border-radius:50%;box-shadow:0 0 0 2px #6a8975}
+.tile.flash{animation:flash .7s ease}
+@keyframes flash{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5)}}
+#cover{position:absolute;inset:0;background:#253e3580;backdrop-filter:blur(1px);display:flex;align-items:center;justify-content:center;flex-direction:column;color:#fffbea;text-align:center;padding:15px}
+#cover h3{font-family:serif;font-size:26px;font-weight:400;margin:15px 0 0}
+#cover p{font-size:12px;color:#e6e6d8;margin:10px 0 22px}
+#cover small{font-size:9px;margin-top:18px;opacity:.65}
+.seal{border:1px solid #edcc9c;padding:8px;color:#f4dab1;font-family:serif;font-size:21px;line-height:1.2;transform:rotate(-6deg)}
+.primary{background:#b95339;color:#fff8ec;border:0;padding:12px 26px;min-width:180px}
+.primary:hover{background:#a74730}
+.primary span{margin-left:25px}
+#reference{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:2}
+.stat{padding:0 0 15px;margin-bottom:12px;border-bottom:1px solid #e3e5d8}
+.stat small{display:block;font-size:11px;color:#8b9484}
+.stat strong{font:27px Georgia;color:#4f6859}
+.stat .best{display:block;font:11px sans-serif;color:#b0997b;margin-top:2px}
+.side-info>button{display:block;width:100%;font-size:11px;padding:7px 3px;margin-bottom:7px}
+.side-info>p{font-size:10px;color:#8a9383;line-height:1.6}
+.knowledge{margin-top:22px;padding-top:20px;border-top:1px solid #e1e4d7}
+.knowledge>span{font-size:10px;color:#a06c49;letter-spacing:2px}
+.knowledge h3{font-size:15px;font-weight:500;margin:5px 0}
+.knowledge p{font-size:12px;color:#89907f;margin:4px 0}
+.knowledge a{font-size:10px;color:#718672;text-decoration:none}
+footer{display:flex;justify-content:space-between;margin-top:30px;font-size:10px;color:#969b8d;letter-spacing:2px}
+dialog{max-width:460px;width:90%;border:1px solid #d5d9c8;border-radius:14px;background:#fbf8ed;padding:35px;color:#354d3d;text-align:center}
+dialog::backdrop{background:#20342d88;backdrop-filter:blur(5px)}
+#close{position:absolute;right:10px;top:8px;border:0;font-size:22px;padding:0 10px}
+.answer{display:block;width:100%;margin:10px 0}
+.answer:hover{background:#e6ebe1}
+.stamp{display:inline-flex;flex-direction:column;justify-content:center;border:3px double #ac4e37;color:#ac4e37;font-family:serif;padding:13px 15px;margin:8px;transform:rotate(-8deg);font-size:20px;line-height:1.4;min-width:96px}
+dialog p{font-size:13px;color:#828b79}
+#feedback{min-height:23px;color:#aa513c}
+#shareurl{width:100%;padding:12px;border:1px solid #cbd3c3;border-radius:6px;background:#fff;font-size:12px;font-family:inherit}
+@media(min-width:1300px){.picture{max-width:520px}}
+@media(max-width:850px){
+ header{padding:16px 20px;gap:10px}
+ main{padding:24px 20px}
+ .tags{position:static;gap:15px;margin-top:20px}
+ h1{font-size:31px}
+ .workspace{display:block}
+ aside .section-title,.note{display:none}
+ #chapters{display:flex;gap:8px;flex-wrap:wrap}
+ .chapter{padding:10px;gap:8px;flex:1;min-width:120px}
+ .chapter .num{font-size:20px}
+ .chapter strong{font-size:12px}
+ .chapter small{font-size:9px}
+ article{padding:20px}
+ .game-area{grid-template-columns:minmax(0,1fr) 100px;gap:14px}
+ .side-info>button{font-size:10px}
+ .stat{margin-bottom:8px;padding-bottom:8px}
+ .stat strong{font-size:23px}
+ footer{letter-spacing:0}
+}
+@media(max-width:480px){
+ .brand small{display:none}
+ h1{font-size:27px;letter-spacing:0}
+ .intro{padding-bottom:23px}
+ .intro>p:not(.eyebrow){font-size:12px}
+ .tags{font-size:10px;gap:12px}
+ .game-area{display:block}
+ .side-info{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+ .stat{flex:1;text-align:center}
+ .side-info>button{width:30%;flex-grow:1}
+ .side-info>p{width:100%;margin:0}
+ .chapter .num{display:none}
+ .chapter{justify-content:center}
+ .game-head{gap:5px}
+ h2{font-size:22px}
+ article{padding:15px}
+ #cover h3{font-size:24px}
+ #cover p{font-size:10px}
+ footer{font-size:9px}
+ header{padding:12px 14px}
+ header button{padding:7px 9px;font-size:11px}
+ .brand{font-size:21px;gap:6px}
+ .brand b{font-size:23px}
+ header button span{margin-left:3px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="#"><b>晋</b> 晋见 <small>古建拼图</small></a>
+  <button id="share">微信分享 ↗</button>
+  <button id="sound" title="音效开关">♪ 音效</button>
+  <button id="collection">我的藏章 <span id="count">0 / 4</span></button>
+</header>
+<main>
+  <section class="intro">
+    <p class="eyebrow">一砖一瓦 · 拼见千年</p>
+    <h1>把山西，<em>一片片拼回来。</em></h1>
+    <p>从一座木塔出发，寻访藏在山河间的建筑记忆。<br>拼复古建，解锁知识，留下你的文化足迹。</p>
+    <div class="tags"><span>✧ 无需下载</span><span>◷ 约 3 分钟一局</span><span>▧ 四处文化地标</span></div>
+  </section>
+  <section class="workspace">
+    <aside>
+      <div class="section-title">寻访手札 <small>CHAPTERS</small></div>
+      <div id="chapters"></div>
+      <div class="note"><span>今日营造笔记</span><p>古建的美，藏在屋檐的弧度里，<br>也藏在每一次耐心的拼合中。</p><i>—— 小小古建修复师</i></div>
+    </aside>
+    <article>
+      <div class="game-head">
+        <div><p id="type" class="eyebrow"></p><h2 id="name"></h2></div>
+        <select id="difficulty" aria-label="拼图难度">
+          <option value="3">入门 · 9 片</option>
+          <option value="4">进阶 · 16 片</option>
+          <option value="5">专家 · 25 片</option>
+        </select>
+      </div>
+      <div class="game-area">
+        <div class="picture">
+          <div id="board" aria-label="拼图区域"></div>
+          <div id="cover">
+            <div class="seal">山西<br>古建</div>
+            <h3>一榫一卯，千年不散</h3>
+            <p>点击两块碎片交换位置，拼出完整画面</p>
+            <button class="primary" id="start">开始修复 <span>↗</span></button>
+            <small>原创风格化插画 · 非建筑测绘复原图</small>
+          </div>
+          <img id="reference" alt="完整拼图参考图" hidden>
+        </div>
+        <div class="side-info">
+          <div class="stat"><small>修复用时</small><strong id="timer">00:00</strong><span class="best" id="best"></span></div>
+          <div class="stat"><small>交换步数</small><strong id="moves">00</strong></div>
+          <div class="stat"><small>归位碎片</small><strong id="progress">0 / 9</strong></div>
+          <button id="peek">◉ 查看原图</button>
+          <button id="hint">✧ 提示归位 <small id="hints">3</small></button>
+          <button id="restart">↻ 重新开始</button>
+          <p id="status" role="status">准备好，开始一场古建寻访。</p>
+        </div>
+      </div>
+      <div class="knowledge">
+        <span>文物小档案</span>
+        <h3 id="subtitle"></h3>
+        <p id="description"></p>
+        <a id="source" target="_blank" rel="noopener">查阅知识来源 ↗</a>
+      </div>
+    </article>
+  </section>
+  <footer><span>晋见 · 让文化在指尖相遇</span><span>拼图 × 知识 × 收藏</span></footer>
+</main>
+<dialog id="modal"><button id="close" aria-label="关闭">×</button><div id="modalcontent"></div></dialog>
+<script>
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const levels=[
+ {name:'应县木塔',type:'01 / 楼阁式木塔',sub:'檐影层叠，木构千年',desc:'应县木塔又称佛宫寺释迦塔，位于山西应县，是世界现存最高、最古老的全木结构塔式建筑。拼图以层叠屋檐与木构楼阁为灵感，呈现古建的节奏之美。',url:'https://news.youth.cn/gn/201609/t20160928_8701593.htm',q:'应县木塔又称什么？',answers:['佛宫寺释迦塔','大雁塔','雷峰塔'],correct:0,explain:'应县木塔又称佛宫寺释迦塔，位于山西应县。'},
+ {name:'古建营造',type:'02 / 古建形制',sub:'循着屋檐，读懂营造之美',desc:'本关为古建意象创作，并非某座文物的复原图。抬头看屋顶、低头看台基，试着从轮廓中读懂传统建筑“三段式”的层次之美。',url:'https://www.dpm.org.cn/',q:'覆盖建筑上部、向两侧伸展的部分是什么？',answers:['台基','屋顶','门槛'],correct:1,explain:'屋顶覆盖建筑上部；台基位于建筑下部。'},
+ {name:'陶寺观象',type:'03 / 考古遗址',sub:'从一束日光，望见文明曙光',desc:'陶寺遗址位于山西襄汾，发现了城址、宫殿区、观象台遗址等重要遗迹，是探索中华文明起源的关键遗址。本关为观象主题的艺术示意，不代表遗址原貌。',url:'https://www.ndrc.gov.cn/xwdt/ztzl/dyhgjwhgy/202209/t20220919_1335765.html',q:'下面哪一项是陶寺遗址发现的重要遗迹？',answers:['蒸汽机房','现代钟楼','观象台遗址'],correct:2,explain:'陶寺遗址发现的重要遗迹包括城址、宫殿区、观象台遗址等。'},
+ {name:'佛光寺东大殿',type:'04 / 唐代木构',sub:'斗拱雄大，犹存大唐气象',desc:'佛光寺东大殿位于山西五台山，重建于唐大中十一年（857年），是中国现存规模最大、保存最完整的唐代木结构建筑。',url:'https://baike.baidu.com/item/佛光寺',q:'佛光寺东大殿重建于哪个年代？',answers:['唐大中十一年','清乾隆年间','宋仁宗时期'],correct:0,explain:'佛光寺东大殿重建于唐大中十一年（857年），是现存规模最大的唐代木构建筑。'}
+];
+const captions=['应县 · 木构千年','营造 · 一檐一梦','陶寺 · 观日知时','五台 · 大唐遗构'];
+function scene(k){
+ if(k===0){
+  let s='<path d="M175 511H425L411 535H187Z" fill="#8d9079"/>';
+  for(let i=0;i<5;i++){let y=435-i*66,w=220-i*23,x=300-w/2;
+   s+=`<path d="M${x} ${y-44}H${x+w}V${y+5}H${x}Z" fill="#a9794d"/><path d="M${x+7} ${y-37}H${x+w-7}V${y-4}H${x+7}Z" fill="#493f30"/>`;
+   for(let j=0;j<5;j++)s+=`<rect x="${x+12+j*(w-24)/4}" y="${y-39}" width="6" height="43" fill="#c8a06c"/>`;
+   s+=`<path d="M${x-25} ${y-41}Q${x} ${y-45} ${x+20} ${y-62}L300 ${y-84}L${x+w-20} ${y-62}Q${x+w} ${y-45} ${x+w+25} ${y-41}Q300 ${y-23} ${x-25} ${y-41}" fill="#53695b" stroke="#344d42" stroke-width="3"/><path d="M${x-20} ${y-40}Q300 ${y-25} ${x+w+20} ${y-40}" stroke="#d1bd88" fill="none" stroke-width="3"/><path d="M${x-10} ${y+3}H${x+w+10}" stroke="#cfb581" stroke-width="6"/>`;
+  }
+  s+='<path d="M300 76V36M289 59H311M294 45H306" stroke="#7e7150" stroke-width="4"/><rect x="279" y="413" width="42" height="43" fill="#372f29"/>';
+  return s;
+ }
+ if(k===1){
+  let s='<path d="M65 449H535L560 500H40Z" fill="#a8a48a"/><path d="M91 317H509V449H91Z" fill="#b28358"/>';
+  for(let x=116;x<510;x+=73)s+=`<rect x="${x}" y="324" width="12" height="130" fill="#8b4735"/><rect x="${x+17}" y="345" width="39" height="100" fill="#4e4f3d"/><path d="M${x+20} 366H${x+53}M${x+20} 387H${x+53}M${x+36} 347V439" stroke="#b39662" stroke-width="3"/>`;
+  s+='<path d="M44 331Q96 310 133 240L300 207L466 240Q507 309 556 331Q300 365 44 331" fill="#456352" stroke="#304f41" stroke-width="5"/><path d="M130 238Q300 254 470 238M74 323Q300 349 527 323" fill="none" stroke="#beae7f" stroke-width="5"/><rect x="263" y="331" width="75" height="28" fill="#324b3b"/><text x="300" y="351" text-anchor="middle" fill="#e6cd91" font-size="16" font-family="serif">营造之美</text><path d="M265 449H335L360 503H240Z" fill="#d1c6a6"/>';
+  return s;
+ }
+ if(k===2){
+  let s='<circle cx="363" cy="197" r="55" fill="#df9a5e"/><circle cx="363" cy="197" r="62" fill="none" stroke="#e6b56b" stroke-width="3" opacity=".6"/><path d="M70 449Q300 353 531 450L531 503Q300 431 70 503Z" fill="#af8f62"/><ellipse cx="300" cy="461" rx="223" ry="48" fill="#c6ad7d"/>';
+  for(let i=0;i<11;i++){let a=(i/10)*Math.PI,x=300+199*Math.cos(a),y=430-55*Math.sin(a);
+   s+=`<path d="M${x-12} ${y}V${y-118}L${x+10} ${y-122}V${y-2}Z" fill="#a98755" stroke="#8c704c" stroke-width="2"/><path d="M${x+10} ${y-122}L${x+19} ${y-114}V${y+3}L${x+10} ${y-2}" fill="#8b734e"/>`;
+  }
+  s+='<path d="M363 252L287 484L330 482Z" fill="#f8e7b8" opacity=".6"/><path d="M278 477H322V498H278Z" fill="#786d4e"/>';
+  return s;
+ }
+ let s='<path d="M140 520Q300 470 460 520L500 560H100Z" fill="#8a8d76"/>';
+ s+='<path d="M118 330H482V470H118Z" fill="#b68957"/><path d="M118 330H482V352H118Z" fill="#9c7045"/>';
+ for(let x=138;x<470;x+=55)s+=`<path d="M${x} 352V470" stroke="#8b4f38" stroke-width="9"/><rect x="${x+9}" y="360" width="24" height="40" fill="#4d4e3d"/>`;
+ s+='<path d="M82 336Q140 312 300 296Q460 312 518 336L492 300Q300 262 108 300Z" fill="#4a5f4f" stroke="#35493e" stroke-width="4"/><path d="M96 334Q300 300 504 334" fill="none" stroke="#c7b47e" stroke-width="4"/><rect x="252" y="440" width="96" height="34" fill="#35483c"/><text x="300" y="463" text-anchor="middle" fill="#e9d49a" font-size="17" font-family="serif">佛光寺</text>';
+ s+='<path d="M300 40V130M300 40C266 40 258 78 300 96C342 78 334 40 300 40Z" fill="#c8a06c"/>';
+ return s;
+}
+function artwork(k){
+ return `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600"><defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#bdccba"/><stop offset="1" stop-color="#eee5c9"/></linearGradient><filter id="grain"><feTurbulence baseFrequency=".6" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".08"/></feComponentTransfer><feBlend in="SourceGraphic" mode="multiply"/></filter></defs><g filter="url(#grain)"><path fill="url(#sky)" d="M0 0H600V600H0Z"/><circle cx="458" cy="112" r="53" fill="#f1e5bf"/><path d="M0 329L98 207L184 304L283 214L405 337L489 261L600 354V600H0" fill="#8fa58c" opacity=".45"/><path d="M0 386L127 294L262 384L449 317L600 397V600H0" fill="#728f79" opacity=".5"/><path d="M0 485Q280 434 600 493V600H0Z" fill="#c5c4a4"/>${scene(k)}<path d="M0 573Q126 512 212 600H0M600 570Q501 526 447 600H600" fill="#728471"/><path d="M31 0V190M31 70L5 47M31 99L70 67M555 0V98M555 43L596 15" stroke="#536e59" stroke-width="5" opacity=".45"/><text x="42" y="548" fill="#f6f0d8" font-family="serif" font-size="16" letter-spacing="7">${captions[k]}</text><text x="550" y="542" fill="#a45139" font-family="serif" font-size="23" writing-mode="tb">晋见</text></g></svg>`;
+}
+const images=levels.map((_,i)=>'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(artwork(i)));
+let index=0,n=3,tiles=[],selected=-1,cur=-1,moves=0,hints=3,playing=false,started=0,ticker=null,elapsed=0,earned=[],best={},soundOn=true;
+try{earned=JSON.parse(localStorage.getItem('jinjian-stamps')||'[]');if(!Array.isArray(earned))earned=[]}catch{}
+try{best=JSON.parse(localStorage.getItem('jinjian-best')||'{}');if(!best||typeof best!=='object')best={}}catch{}
+try{soundOn=localStorage.getItem('jinjian-sound')!=='0'}catch{}
+function key(){return index+'_'+n}
+function chapters(){
+ $('#chapters').innerHTML=levels.map((l,i)=>`<button class="chapter ${index===i?'active':''}" data-level="${i}"><span class="num">0${i+1}</span><span><strong>${l.name}</strong><small>${['朔州 · 木构之美','意象 · 传统形制','临汾 · 文明探源','忻州 · 唐代遗构'][i]}</small></span><span class="check">${earned.includes(i)?'✓':''}</span></button>`).join('');
+ $$('#chapters [data-level]').forEach(b=>b.onclick=()=>load(+b.dataset.level));
+ $('#count').textContent=earned.length+' / 4';
+ updateSoundBtn();
+}
+function load(i){
+ clearInterval(ticker);index=i;playing=false;selected=-1;cur=-1;moves=0;elapsed=0;hints=3;
+ n=+$('#difficulty').value;tiles=Array.from({length:n*n},(_,j)=>j);
+ $('#name').textContent=levels[i].name;$('#type').textContent=levels[i].type;
+ $('#subtitle').textContent=levels[i].sub;$('#description').textContent=levels[i].desc;$('#source').href=levels[i].url;
+ $('#reference').src=images[i];$('#reference').hidden=true;
+ $('#cover').style.display='flex';$('#status').textContent='准备好，开始一场古建寻访。';
+ chapters();render();
+}
+function render(){
+ const b=$('#board');
+ b.style.gridTemplateColumns=`repeat(${n},1fr)`;
+ b.innerHTML=tiles.map((v,i)=>`<button class="tile ${v===i?'correct':''} ${selected===i?'selected':''} ${cur===i?'focus':''}" aria-label="第${i+1}格，碎片${v+1}${selected===i?'，已选中':''}" style="background-image:url('${images[index]}');background-size:${n*100}% ${n*100}%;background-position:${(v%n)/(n-1)*100}% ${Math.floor(v/n)/(n-1)*100}%" data-i="${i}"></button>`).join('');
+ b.querySelectorAll('button').forEach(e=>e.onclick=()=>pick(+e.dataset.i));
+ $('#moves').textContent=String(moves).padStart(2,'0');
+ $('#timer').textContent=format(elapsed);
+ $('#progress').textContent=(playing||moves?tiles.filter((v,i)=>v===i).length:0)+' / '+n*n;
+ $('#hints').textContent=hints;
+ $('#hint').disabled=!playing||!hints;
+ $('#peek').disabled=!playing;
+ $('#best').textContent=best[key()]?'最佳 '+format(best[key()]):'';
+}
+function format(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+function shuffle(){let t=Array.from({length:n*n},(_,j)=>j);for(let i=t.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[t[i],t[j]]=[t[j],t[i]]}if(t.every((v,i)=>v===i))[t[0],t[1]]=[t[1],t[0]];return t}
+function start(){
+ tiles=shuffle();moves=0;elapsed=0;hints=3;selected=-1;cur=0;playing=true;
+ $('#cover').style.display='none';$('#reference').hidden=true;
+ started=Date.now();clearInterval(ticker);
+ ticker=setInterval(()=>{elapsed=Math.floor((Date.now()-started)/1000);$('#timer').textContent=format(elapsed)},500);
+ $('#status').textContent='先点一片，再点另一片交换。';clickSound();render();
+}
+function pick(i){
+ if(!playing)return;
+ if(selected<0){selected=i;cur=i;clickSound();render();return}
+ if(selected===i){selected=-1;render();return}
+ [tiles[i],tiles[selected]]=[tiles[selected],tiles[i]];selected=-1;cur=i;moves++;clickSound();render();check();
+}
+function check(){
+ if(tiles.every((v,i)=>v===i)){
+  playing=false;clearInterval(ticker);elapsed=Math.floor((Date.now()-started)/1000);
+  const k=key();if(!best[k]||elapsed<best[k]){best[k]=elapsed;try{localStorage.setItem('jinjian-best',JSON.stringify(best))}catch{}}
+  successSound();confetti();
+  $('#status').textContent='修复完成！回答一题，领取藏章。';render();setTimeout(quiz,400);
+ }
+}
+function quiz(){
+ const l=levels[index];
+ $('#modalcontent').innerHTML=`<p class="eyebrow">修复完成 · 知识解锁</p><h2>古建小问答</h2><p>用时 ${format(elapsed)} · 交换 ${moves} 步</p><h3>${l.q}</h3>${l.answers.map((a,i)=>`<button class="answer" data-answer="${i}">${a}</button>`).join('')}<p id="feedback" role="status"></p>`;
+ $('#modal').showModal();
+ $$('#modalcontent [data-answer]').forEach(b=>b.onclick=()=>{
+  if(+b.dataset.answer!==l.correct){$('#feedback').textContent='再想一想，也可以查阅下方的文物小档案。';return}
+  if(!earned.includes(index))earned.push(index);
+  try{localStorage.setItem('jinjian-stamps',JSON.stringify(earned))}catch{}
+  chapters();winSound();
+  $('#modalcontent').innerHTML=`<p class="eyebrow">收藏成功</p><div class="stamp">${l.name}<br>寻访留章</div><h2>千年之美，已入收藏</h2><p>${l.explain}</p><p>${n*n} 片 · ${format(elapsed)} · ${moves} 步</p><button class="primary" id="next">${index<levels.length-1?'寻访下一站 ↗':'再游第一站 ↗'}</button>`;
+  $('#next').onclick=()=>{$('#modal').close();load((index+1)%levels.length)};
+ });
+}
+let actx=null;
+function beep(freq,dur,type,gain,when){
+ if(!soundOn)return;
+ try{
+  actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+  const t=actx.currentTime+(when||0),o=actx.createOscillator(),g=actx.createGain();
+  o.type=type||'sine';o.frequency.value=freq;
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(gain||0.06,t+0.012);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o.connect(g).connect(actx.destination);o.start(t);o.stop(t+dur);
+ }catch{}
+}
+function clickSound(){beep(620,0.07,'triangle',0.04)}
+function successSound(){[523,659,784].forEach((f,i)=>beep(f,0.4,'sine',0.06,i*0.09))}
+function winSound(){[523,659,784,1047,1319].forEach((f,i)=>beep(f,0.5,'sine',0.06,i*0.1))}
+function confetti(){
+ const cv=document.createElement('canvas');cv.style.cssText='position:fixed;inset:0;pointer-events:none;z-index:99';document.body.appendChild(cv);
+ const dpr=Math.min(devicePixelRatio||1,2);cv.width=innerWidth*dpr;cv.height=innerHeight*dpr;const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+ const cols=['#ac4e37','#6a8975','#e6c87f','#c8a06c','#526f60','#b95339'];
+ const ps=Array.from({length:140},()=>({x:Math.random()*innerWidth,y:-30-Math.random()*innerHeight*.5,w:5+Math.random()*7,h:8+Math.random()*9,c:cols[Math.random()*cols.length|0],vy:2+Math.random()*3.4,vx:(Math.random()-.5)*2.4,r:Math.random()*Math.PI,vr:(Math.random()-.5)*.22}));
+ let f=0;(function loop(){ctx.clearRect(0,0,innerWidth,innerHeight);ps.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.vy+=0.02;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.c;ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore()});if(f++<200)requestAnimationFrame(loop);else cv.remove()})();
+}
+function updateSoundBtn(){$('#sound').textContent=soundOn?'♪ 音效开':'♪ 音效关'}
+$('#start').onclick=start;$('#restart').onclick=start;
+$('#difficulty').onchange=()=>load(index);
+$('#peek').onclick=()=>{$('#reference').hidden=!$('#reference').hidden;$('#peek').textContent=$('#reference').hidden?'◉ 查看原图':'◉ 收起原图'};
+$('#hint').onclick=()=>{
+ if(!playing||hints<1)return;
+ let i=tiles.findIndex((v,j)=>v!==j);if(i<0)return;
+ let j=tiles.indexOf(i);[tiles[i],tiles[j]]=[tiles[j],tiles[i]];hints--;moves++;selected=-1;cur=i;
+ $('#status').textContent=`提示已将第 ${i+1} 格归位。`;render();check();
+ if(!tiles.every((v,x)=>v===x)){const el=$(`[data-i="${i}"]`);if(el){el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),700)}}
+};
+$('#sound').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('jinjian-sound',soundOn?'1':'0')}catch{}updateSoundBtn()};
+$('#close').onclick=()=>$('#modal').close();
+$('#collection').onclick=()=>{
+ $('#modalcontent').innerHTML='<p class="eyebrow">我的寻访手札</p><h2>一章一段文化记忆</h2>'+levels.map((l,i)=>`<div class="stamp" style="${earned.includes(i)?'':'opacity:.25;filter:grayscale(1)'}">${l.name}<br>${earned.includes(i)?'已收藏':'待寻访'}</div>`).join('')+'<p>完成拼图并答对小题，即可领取藏章。<br>藏章保存在当前浏览器。</p>';
+ $('#modal').showModal();
+};
+$('#modal').addEventListener('close',()=>{if(!playing&&moves&&tiles.every((v,i)=>v===i)&&!earned.includes(index)){$('#status').innerHTML='已完成拼图。<button id="resume" style="padding:2px 8px;margin-left:6px">继续答题领章</button>';$('#resume').onclick=quiz}});
+document.addEventListener('keydown',e=>{
+ if(!playing)return;
+ const keymap={ArrowUp:-n,ArrowDown:n,ArrowLeft:-1,ArrowRight:1};
+ if(e.key in keymap){
+  e.preventDefault();
+  cur=cur<0?0:cur;
+  const r=Math.floor(cur/n),c=cur%n,step=keymap[e.key];
+  const nc=c+step;
+  if(step===1||step===-1){if(nc<0||nc>=n)return;cur=r*n+nc}
+  else{const nr=r+(step>0?1:-1);if(nr<0||nr>=n)return;cur=nr*n+c}
+  render();return;
+ }
+ if(e.key==='Enter'||e.key===' '){e.preventDefault();if(cur>=0)pick(cur);return}
+ if(e.key==='Escape'){selected=-1;render()}
+});
+load(0);
+</script>
+<script>
+(()=>{
+ const url=location.href.split('#')[0].split('?')[0];
+ $('#share').onclick=()=>{
+  const box=$('#modalcontent');
+  box.innerHTML='<p class="eyebrow">邀好友 · 拼见千年</p><h2>把古建之美分享出去</h2><p>在微信中打开本页后，点击右上角「···」，选择发送给朋友或分享到朋友圈。</p><p>也可以复制下面的链接，粘贴到微信聊天中发送。</p><input id="shareurl" aria-label="游戏分享链接" readonly><button class="primary" id="copylink" style="margin-top:18px">复制游戏链接</button><p id="sharestatus" role="status">无需登录，打开链接即可试玩。</p>';
+  $('#shareurl').value=url;
+  $('#copylink').onclick=async()=>{
+   try{await navigator.clipboard.writeText(url);$('#sharestatus').textContent='已复制！切换到微信，粘贴给好友或微信群。'}
+   catch{$('#shareurl').select();$('#sharestatus').textContent='请长按或选中上方链接，复制后发送到微信。'}
+  };
+  $('#modal').showModal();
+ };
+})();
+</script>
+</body>
+</html>
